@@ -27,6 +27,7 @@ services:
     expose: 8080 # api calls will be made to localhost:8080 or docker uri 'python_backend'
     volumes:
       - ~/projects/piql/python:/piql
+    command: make
   database:
     image: mysql:latest
     container_name: drug_inventory

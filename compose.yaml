@@ -41,6 +41,6 @@ services:
     expose:
       - 3306 # may not need to expose this.
     volumes:
-      - ./data/database:/var/lib/mysql
+      - ./data/database/data:/var/lib/mysql
       - "./data/database/scripts/creation.sql:/docker-entrypoint-initdb.d/1.sql"
       - "./data/database/scripts/data.sql:/docker-entrypoint-initdb.d/2.sql"

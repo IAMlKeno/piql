@@ -1,0 +1,46 @@
+# docker yaml inheritence thing
+# environment:
+#    MYSQL_URL: 'drug_inventory'
+#    MYSQL_USER: 'user'
+#    MYSQL_PASSWORD: 'password'
+
+services:
+  app:
+    image: beevelop/ionic:latest
+    container_name: ionic-web
+    ports:
+      - 4200:4200
+    expose:
+      - 4200 # localhost:4200
+    volumes:
+      - ~/projects/piql/ionic:/project
+    command: ionic serve --port=4200 --host=0.0.0.0
+  backend:
+    image: python:3.13.0a6-slim-bookworm
+    container_name: python_backend
+    environment:
+      MYSQL_URL: 'drug_inventory'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+    ports:
+      - 4201:8080
+    expose: 8080 # api calls will be made to localhost:8080 or docker uri 'python_backend'
+    volumes:
+      - ~/projects/piql/python:/piql
+  database:
+    image: mysql:latest
+    container_name: drug_inventory
+    environment:
+      MYSQL_DATABASE: 'drugs'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    restart: always
+    ports:
+      - 3306:3306
+    expose:
+      - 3306 # may not need to expose this.
+    volumes:
+      - ./data/database:/var/lib/mysql
+      - "./data/database/scripts/creation.sql:/docker-entrypoint-initdb.d/1.sql"
+      - "./data/database/scripts/data.sql:/docker-entrypoint-initdb.d/2.sql"

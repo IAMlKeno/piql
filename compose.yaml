@@ -23,8 +23,8 @@ services:
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
     ports:
-      - 4201:8080
-    expose: 8080 # api calls will be made to localhost:8080 or docker uri 'python_backend'
+      - 4201:4201
+    expose: 4201 # api calls will be made to localhost:4201 or docker uri 'python_backend'
     volumes:
       - ~/projects/piql/python:/piql
     command: make

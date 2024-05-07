@@ -23,4 +23,5 @@ Once advanced stages are completed, we will introduce database relations for dat
 ---
 ## TODO:
 - Verify docker compose file is functional
+  - Implement yaml inheritance of the database environment variables
 - Create tutorial on setting up a database explorer to view DB data

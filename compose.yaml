@@ -6,7 +6,9 @@
 
 services:
   app:
-    image: beevelop/ionic:latest
+    build:
+      context: ionic
+      dockerfile: ./Dockerfile
     container_name: ionic-web
     ports:
       - 4200:4200
@@ -16,7 +18,7 @@ services:
       - ~/projects/piql/ionic:/project
     command: ionic serve --port=4200 --host=0.0.0.0
   backend:
-    image: python:3.13.0a6-slim-bookworm
+    image: python:3.12-slim
     container_name: python_backend
     environment:
       MYSQL_URL: 'drug_inventory'
@@ -24,12 +26,13 @@ services:
       MYSQL_PASSWORD: 'password'
     ports:
       - 4201:4201
-    expose: 4201 # api calls will be made to localhost:4201 or docker uri 'python_backend'
+    expose:
+      - 4201 # api calls will be made to localhost:4201 or docker uri 'python_backend'
     volumes:
       - ~/projects/piql/python:/piql
     command: make
   database:
-    image: mysql:latest
+    image: arm64v8/mysql
     container_name: drug_inventory
     environment:
       MYSQL_DATABASE: 'drugs'

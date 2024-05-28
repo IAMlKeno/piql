@@ -27,10 +27,10 @@ services:
     ports:
       - 4201:4201
     expose:
-      - 4201 # api calls will be made to localhost:4201 or docker uri 'python_backend'
+      - 4201 # api calls from the frontend will go to python_backend:4201
     volumes:
       - ~/projects/piql/python:/piql
-    command: make
+    command: tail -f /dev/null
   database:
     image: arm64v8/mysql
     container_name: drug_inventory

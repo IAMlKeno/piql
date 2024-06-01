@@ -35,7 +35,7 @@ services:
     image: arm64v8/mysql
     container_name: drug_inventory
     environment:
-      MYSQL_DATABASE: 'drugs'
+      MYSQL_DATABASE: 'drug_inventory'
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
